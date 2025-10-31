@@ -1,0 +1,42 @@
+export const projects = [
+  {
+    id: 1,
+    title: "Business Website",
+    slug: "business-website",
+    description: "A professional website for businesses to showcase their services and products.",
+    image: "/images/business-website.png",
+    link: "https://example.com/business-website",
+  },
+  {
+    id: 2,
+    title: "Social Media Platform",
+    slug: "social-media-platform",
+    description: "A social media platform for connecting people and sharing content.",
+    image: "/images/social-media-platform.png",
+    link: "https://example.com/social-media-platform",
+  },
+  {
+    id: 3,
+    title: "Real Estate Listing",
+    slug: "real-estate-listing",
+    description: "A real estate website for listing properties and connecting buyers with sellers.",
+    image: "/images/real-estate-listing.png",
+    link: "https://example.com/real-estate-listing",
+  },
+  {
+    id: 4,
+    title: "E-commerce Store",
+    slug: "e-commerce-store",
+    description: "An online store for selling products directly to consumers.",
+    image: "/images/e-commerce-store.png",
+    link: "https://example.com/e-commerce-store",
+  },
+  {
+    id: 5,
+    title: "Portfolio Website",
+    slug: "portfolio-website",
+    description: "A personal portfolio website to showcase projects and skills.",
+    image: "/images/portfolio-website.png",
+    link: "https://example.com/portfolio-website",
+  },
+];

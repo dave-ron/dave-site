@@ -1,0 +1,32 @@
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { projects } from '../../../data/projects';
+import ProjectCard from '../../../components/ProjectCard';
+
+const ProjectDetail = () => {
+  const router = useRouter();
+  const { slug } = router.query;
+  const [project, setProject] = useState(null);
+
+  useEffect(() => {
+    if (slug) {
+      const foundProject = projects.find((proj) => proj.slug === slug);
+      setProject(foundProject);
+    }
+  }, [slug]);
+
+  if (!project) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div>
+      <h1>{project.title}</h1>
+      <ProjectCard project={project} />
+      <p>{project.description}</p>
+      {/* Add more project details as needed */}
+    </div>
+  );
+};
+
+export default ProjectDetail;

@@ -1,0 +1,63 @@
+/* Recommended starter: reset + Tailwind directives + sane base styles */
+
+/* Import a system / web font (optional) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+/* Tailwind base + components + utilities (Tailwind must be installed & configured) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Minimal reset / base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body, #__next {
+  height: 100%;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  background-color: theme('colors.gray.50', #f8fafc);
+  color: theme('colors.gray.900', #0f172a);
+  line-height: 1.5;
+  -webkit-font-feature-settings: "rlig" 1;
+}
+
+/* Utility container centered */
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Small accessible focus style */
+:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3); /* indigo-500 ring */
+}
+
+/* Lightweight typography helpers */
+.h1 {
+  font-size: 2.25rem;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.lead {
+  font-size: 1.125rem;
+  color: theme('colors.gray.600', #475569);
+}
