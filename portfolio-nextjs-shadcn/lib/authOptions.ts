@@ -1,5 +1,6 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GitHubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "./db";
 import type { NextAuthOptions } from "next-auth";
@@ -11,6 +12,10 @@ export const authOptions: NextAuthOptions = {
     GitHubProvider({
       clientId: process.env.GITHUB_ID ?? "",
       clientSecret: process.env.GITHUB_SECRET ?? "",
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -24,23 +29,21 @@ export const authOptions: NextAuthOptions = {
         if (!user || !user.password) return null;
         const valid = await bcrypt.compare(credentials.password, user.password);
         if (!valid) return null;
-        // return minimal user object
-        return { id: user.id.toString(), name: user.name ?? undefined, email: user.email, isAdmin: user.isAdmin };
+        return { id: String(user.id), name: user.name ?? undefined, email: user.email, isAdmin: user.isAdmin };
       },
     }),
   ],
+  // using DB sessions when using Prisma adapter + Postgres
+  session: { strategy: "database" },
   secret: process.env.NEXTAUTH_SECRET,
-  session: { strategy: "jwt" },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        // attach isAdmin from the user returned by authorize or adapter
         (token as any).isAdmin = (user as any).isAdmin ?? (token as any).isAdmin ?? false;
       }
       return token;
     },
-    async session({ session, token }) {
-      // attach id and isAdmin to session.user
+    async session({ session, token, user }) {
       if (session.user) {
         (session.user as any).id = token.sub;
         (session.user as any).isAdmin = (token as any).isAdmin ?? false;
@@ -48,4 +51,5 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
+  debug: process.env.NODE_ENV !== "production",
 };
